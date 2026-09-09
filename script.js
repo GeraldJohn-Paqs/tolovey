@@ -549,7 +549,7 @@
   /* ================================================================
      COUNTDOWN — "Close your eyes and count to 3" (in message scene)
               → then PEEK scene (cat + "Hmmmm, Piyong haaaa")
-              → auto after 2s → second countdown in peek scene
+              → user taps TRY AGAIN → second countdown in peek scene
               → then reveal bouquet
      ================================================================ */
   let countdownActive = false;
@@ -571,10 +571,7 @@
             setTimeout(() => {
               scenePeek.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 50);
-            // Hold the peek scene for 2 seconds, then auto-run the second countdown
-            setTimeout(() => {
-              runPeekCountdown();
-            }, 2000);
+            // Wait for the user to tap "Try again" before counting down
           });
         }, 700);
         return;
@@ -589,25 +586,36 @@
     tickFirst(3);
   }
 
-  // After the peek scene: reveal the bouquet directly (no second countdown)
+  // Run the second countdown in the peek scene, then reveal the bouquet
   function runPeekCountdown() {
     if (peekCountdownStarted) return;
     peekCountdownStarted = true;
-    // Hide the Try again button
+    // Hide the Try again button + show the countdown stage
     peekButton.classList.add('is-hidden');
-    // Reveal the bouquet
-    setTimeout(() => {
-      revealAfterScene(sceneBouquet).then(() => {
-        bouquetNote.classList.add('is-shown');
-        bouquetCat.classList.add('is-shown');
-        bouquetEnvelope.classList.add('is-shown');
+    peekStage.style.opacity = '1';
+    const tickSecond = (m) => {
+      if (m < 1) {
         setTimeout(() => {
-          sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
-      });
-      countdownActive = false;
-      peekCountdownStarted = false;
-    }, 400);
+          revealAfterScene(sceneBouquet).then(() => {
+            bouquetNote.classList.add('is-shown');
+            bouquetCat.classList.add('is-shown');
+            bouquetEnvelope.classList.add('is-shown');
+            setTimeout(() => {
+              sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+          });
+          countdownActive = false;
+          peekCountdownStarted = false;
+        }, 700);
+        return;
+      }
+      countdownDigit2.textContent = String(m);
+      countdownDigit2.classList.remove('is-pop');
+      void countdownDigit2.offsetWidth;
+      countdownDigit2.classList.add('is-pop');
+      setTimeout(() => tickSecond(m - 1), 1000);
+    };
+    tickSecond(3);
   }
 
   function setupPeekButton() {
@@ -616,20 +624,7 @@
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
       spawnHeartBurst(cx, cy, 8);
-      // Hide the button right away, wait 2 seconds, then reveal the bouquet
-      peekButton.classList.add('is-hidden');
-      setTimeout(() => {
-        revealAfterScene(sceneBouquet).then(() => {
-          bouquetNote.classList.add('is-shown');
-          bouquetCat.classList.add('is-shown');
-          bouquetEnvelope.classList.add('is-shown');
-          setTimeout(() => {
-            sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 50);
-        });
-        countdownActive = false;
-        peekCountdownStarted = false;
-      }, 2000);
+      runPeekCountdown();
     });
   }
 
