@@ -948,19 +948,20 @@ button:focus-visible {
   left: 50%;
   transform: translate(-50%, 0);
   z-index: 5;
-  width: clamp(90px, 20vw, 130px);
-  height: clamp(60px, 13vw, 90px);
+  width: clamp(90px, 22vw, 140px);
+  height: clamp(70px, 16vw, 100px);
   padding: 0;
-  background: transparent;
-  border: none;
+  background: rgba(217, 122, 138, 0.0);
+  border: 2px dashed rgba(217, 122, 138, 0.0);
+  border-radius: 6px;
   cursor: pointer;
   display: block;
   opacity: 0;
   pointer-events: none;
-  /* Hide all the visible envelope design parts */
   color: transparent;
   text-shadow: none;
   filter: none;
+  transition: background 0.4s var(--ease-smooth), border-color 0.4s var(--ease-smooth);
 }
 
 .bouquet-envelope > * {
@@ -970,7 +971,18 @@ button:focus-visible {
 .bouquet-envelope.is-shown {
   opacity: 1;
   pointer-events: auto;
-  animation: none;
+  animation: envelope-tap-hint 2.4s ease-in-out 0.4s infinite;
+}
+
+@keyframes envelope-tap-hint {
+  0%, 100% {
+    background: rgba(217, 122, 138, 0.0);
+    border-color: rgba(217, 122, 138, 0.0);
+  }
+  50% {
+    background: rgba(217, 122, 138, 0.10);
+    border-color: rgba(217, 122, 138, 0.45);
+  }
 }
 
 @keyframes envelope-pop {
