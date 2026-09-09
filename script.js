@@ -616,7 +616,20 @@
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
       spawnHeartBurst(cx, cy, 8);
-      runPeekCountdown();
+      // Hide the button right away, wait 2 seconds, then reveal the bouquet
+      peekButton.classList.add('is-hidden');
+      setTimeout(() => {
+        revealAfterScene(sceneBouquet).then(() => {
+          bouquetNote.classList.add('is-shown');
+          bouquetCat.classList.add('is-shown');
+          bouquetEnvelope.classList.add('is-shown');
+          setTimeout(() => {
+            sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+        });
+        countdownActive = false;
+        peekCountdownStarted = false;
+      }, 2000);
     });
   }
 
