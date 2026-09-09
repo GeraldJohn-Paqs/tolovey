@@ -81,7 +81,7 @@
       const delay = -Math.random() * 30;
       const drift = (Math.random() - 0.5) * 180;     // -90 to 90 px
       const rotation = (Math.random() - 0.5) * 90;  // -45° to 45°
-      const opacity = 0.45 + Math.random() * 0.40;  // 0.45–0.85
+      const opacity = 0.18 + Math.random() * 0.18;  // 0.18–0.36 (subtle, doesn't crowd text)
       const color = palette[Math.floor(Math.random() * palette.length)];
 
       el.style.left = left + 'vw';
