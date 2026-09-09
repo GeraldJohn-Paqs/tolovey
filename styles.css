@@ -1220,6 +1220,122 @@ button:focus-visible {
 }
 
 /* ================================================================
+   SCENE 4 — THE PEEK CHECK (orange cat + Pag piyong ba)
+   ================================================================ */
+.scene-peek {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 247, 232, 0.85) 0%, transparent 60%),
+    var(--cream);
+  text-align: center;
+}
+
+.peek-frame {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 3vw, 24px);
+  padding: 0 24px;
+}
+
+.peek-photo {
+  position: relative;
+  width: clamp(220px, 60vw, 360px);
+  background: var(--ivory);
+  padding: 12px 12px 36px;
+  border-radius: 4px;
+  box-shadow:
+    0 18px 40px -10px rgba(120, 60, 70, 0.30),
+    0 6px 16px -4px rgba(120, 60, 70, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: rotate(-3deg);
+  opacity: 0;
+  animation: peek-photo-in 0.7s var(--ease-bounce) 0.1s forwards;
+}
+
+.peek-photo::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(2deg);
+  width: 70px;
+  height: 22px;
+  background: linear-gradient(180deg, rgba(232, 212, 182, 0.75) 0%, rgba(201, 168, 120, 0.55) 100%);
+  box-shadow: 0 1px 3px rgba(120, 60, 70, 0.10);
+  border-left: 1px dashed rgba(255, 255, 255, 0.4);
+  border-right: 1px dashed rgba(255, 255, 255, 0.4);
+}
+
+.peek-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+}
+
+.peek-tilt {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  font-family: 'Caveat', cursive;
+  font-size: 14px;
+  color: var(--mauve);
+  opacity: 0.6;
+  transform: rotate(-2deg);
+}
+
+.peek-line {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: clamp(2rem, 7vw, 3rem);
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.1;
+  opacity: 0;
+  animation: peek-fade-in 0.6s var(--ease-out) 0.6s forwards;
+}
+
+.peek-emoji {
+  display: inline-block;
+  animation: peek-emoji-tilt 2.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.peek-hint {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mauve);
+  margin: 0;
+  opacity: 0;
+  animation: peek-fade-in 0.6s var(--ease-out) 0.9s forwards;
+}
+
+.peek-stage {
+  opacity: 0;
+  animation: peek-fade-in 0.6s var(--ease-out) 1.2s forwards;
+  margin-top: 4px;
+}
+
+@keyframes peek-photo-in {
+  0%   { transform: rotate(-12deg) scale(0.7) translateY(20px); opacity: 0; }
+  100% { transform: rotate(-3deg)  scale(1)   translateY(0);    opacity: 1; }
+}
+
+@keyframes peek-fade-in {
+  to { opacity: 1; }
+}
+
+@keyframes peek-emoji-tilt {
+  0%, 100% { transform: rotate(-6deg); }
+  50%      { transform: rotate(6deg); }
+}
+
+/* ================================================================
    SCENE 6 — THE LETTER (modal overlay)
    ================================================================ */
 .letter-overlay {

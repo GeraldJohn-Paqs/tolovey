@@ -15,9 +15,11 @@
   const sceneIntro   = $('sceneIntro');
   const sceneInvite  = $('sceneInvite');
   const sceneMessage = $('sceneMessage');
+  const scenePeek    = $('scenePeek');
   const sceneBouquet = $('sceneBouquet');
   const messageCountdown = $('messageCountdown');
   const countdownDigit   = $('countdownDigit');
+  const countdownDigit2  = $('countdownDigit2');
   const letterOverlay = $('letterOverlay');
   const letterCard   = $('letterCard');
   const letterClose  = $('letterClose');
@@ -543,7 +545,10 @@
   }
 
   /* ================================================================
-     COUNTDOWN — "Close your eyes and count to 3" then reveal bouquet
+     COUNTDOWN — "Close your eyes and count to 3" (in message scene)
+              → then PEEK scene (cat + "Pag piyong ba")
+              → then second countdown in peek scene
+              → then reveal bouquet
      ================================================================ */
   let countdownActive = false;
   function runCountdown() {
@@ -551,24 +556,46 @@
     countdownActive = true;
     // Reveal countdown block in the message scene
     messageCountdown.classList.add('is-shown');
-    // Make sure the message + countdown are visible
     setTimeout(() => {
       sceneMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 50);
-    // Run 3 → 2 → 1
-    const tick = (n) => {
+    // First tick: 3 → 2 → 1 in the message scene
+    const tickFirst = (n) => {
       if (n < 1) {
-        // Small pause after "1" then reveal the bouquet
+        // After first countdown, transition to the peek scene
         setTimeout(() => {
-          revealAfterScene(sceneBouquet).then(() => {
-            bouquetNote.classList.add('is-shown');
-            bouquetCat.classList.add('is-shown');
-            bouquetEnvelope.classList.add('is-shown');
+          revealAfterScene(scenePeek).then(() => {
             setTimeout(() => {
-              sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              scenePeek.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 50);
+            // Let the peek scene settle, then run the second countdown
+            setTimeout(() => {
+              const tickSecond = (m) => {
+                if (m < 1) {
+                  // After second countdown, reveal the bouquet
+                  setTimeout(() => {
+                    revealAfterScene(sceneBouquet).then(() => {
+                      bouquetNote.classList.add('is-shown');
+                      bouquetCat.classList.add('is-shown');
+                      bouquetEnvelope.classList.add('is-shown');
+                      setTimeout(() => {
+                        sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }, 50);
+                    });
+                    countdownActive = false;
+                  }, 700);
+                  return;
+                }
+                countdownDigit2.textContent = String(m);
+                countdownDigit2.classList.remove('is-pop');
+                // Force reflow so the animation restarts on each tick
+                void countdownDigit2.offsetWidth;
+                countdownDigit2.classList.add('is-pop');
+                setTimeout(() => tickSecond(m - 1), 1000);
+              };
+              tickSecond(3);
+            }, 1400);
           });
-          countdownActive = false;
         }, 700);
         return;
       }
@@ -577,9 +604,9 @@
       // Force reflow so the animation restarts on each tick
       void countdownDigit.offsetWidth;
       countdownDigit.classList.add('is-pop');
-      setTimeout(() => tick(n - 1), 1000);
+      setTimeout(() => tickFirst(n - 1), 1000);
     };
-    tick(3);
+    tickFirst(3);
   }
 
   function setupLetter() {
