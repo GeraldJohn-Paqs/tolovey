@@ -595,18 +595,17 @@
     peekStage.style.opacity = '1';
     const tickSecond = (m) => {
       if (m < 1) {
-        setTimeout(() => {
-          revealAfterScene(sceneBouquet).then(() => {
-            bouquetNote.classList.add('is-shown');
-            bouquetCat.classList.add('is-shown');
-            bouquetEnvelope.classList.add('is-shown');
-            setTimeout(() => {
-              sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50);
-          });
-          countdownActive = false;
-          peekCountdownStarted = false;
-        }, 700);
+        // As soon as the countdown finishes, go straight to the bouquet (no delay)
+        revealAfterScene(sceneBouquet).then(() => {
+          bouquetNote.classList.add('is-shown');
+          bouquetCat.classList.add('is-shown');
+          bouquetEnvelope.classList.add('is-shown');
+          setTimeout(() => {
+            sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50);
+        });
+        countdownActive = false;
+        peekCountdownStarted = false;
         return;
       }
       countdownDigit2.textContent = String(m);
