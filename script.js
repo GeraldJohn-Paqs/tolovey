@@ -420,22 +420,9 @@
                 messageLine2.getAttribute('data-text') || '',
                 38
               ).then(() => {
-                // After line 2 finishes, wait 4 seconds, then reveal the bouquet
+                // After line 2 finishes, wait 4 seconds, then start the countdown
                 setTimeout(() => {
-                  revealAfterScene(sceneBouquet).then(() => {
-                    // Show note & cat immediately with the bouquet (no delay)
-                    bouquetNote.classList.add('is-shown');
-                    bouquetCat.classList.add('is-shown');
-                    bouquetEnvelope.classList.add('is-shown');
-                    // After letting the user enjoy the bouquet for a few seconds,
-                    // transition to the countdown scene.
-                    setTimeout(() => {
-                      runCountdown();
-                    }, 3500);
-                  });
-                  setTimeout(() => {
-                    sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }, 250);
+                  runCountdown();
                 }, 4000);
               });
             }, 350);
@@ -556,7 +543,7 @@
   }
 
   /* ================================================================
-     COUNTDOWN — "Close your eyes and count to 3"
+     COUNTDOWN — "Close your eyes and count to 3" then reveal bouquet
      ================================================================ */
   let countdownActive = false;
   function runCountdown() {
@@ -570,13 +557,16 @@
       // Run 3 → 2 → 1
       const tick = (n) => {
         if (n < 1) {
-          // Small pause after "1" then open the letter
+          // Small pause after "1" then reveal the bouquet
           setTimeout(() => {
-            const rect = countdownDigit.getBoundingClientRect();
-            const cx = rect.left + rect.width / 2;
-            const cy = rect.top + rect.height / 2;
-            spawnHeartBurst(cx, cy);
-            openLetter();
+            revealAfterScene(sceneBouquet).then(() => {
+              bouquetNote.classList.add('is-shown');
+              bouquetCat.classList.add('is-shown');
+              bouquetEnvelope.classList.add('is-shown');
+              setTimeout(() => {
+                sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 50);
+            });
             countdownActive = false;
           }, 700);
           return;
