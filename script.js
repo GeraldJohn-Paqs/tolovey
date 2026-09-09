@@ -23,7 +23,7 @@
 
   const beginButton  = $('beginButton');
   const ctaButton    = $('ctaButton');
-  const revealLetterButton = $('revealLetterButton');
+  const bouquetEnvelope = $('bouquetEnvelope');
 
   const bouquetNote  = $('bouquetNote');
   const bouquetCat   = $('bouquetCat');
@@ -547,12 +547,19 @@
   }
 
   function setupLetter() {
-    revealLetterButton.addEventListener('click', () => {
-      const rect = revealLetterButton.getBoundingClientRect();
+    bouquetEnvelope.addEventListener('click', () => {
+      const rect = bouquetEnvelope.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
       spawnHeartBurst(cx, cy);
       openLetter();
+    });
+    // Keyboard: Enter/Space when envelope is focused
+    bouquetEnvelope.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        bouquetEnvelope.click();
+      }
     });
     letterClose.addEventListener('click', closeLetter);
     letterBackdrop.addEventListener('click', closeLetter);

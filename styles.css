@@ -940,73 +940,182 @@ button:focus-visible {
 .bouquet-corner-heart--tl { top: 10px; right: 14px; }
 .bouquet-corner-heart--br { bottom: 10px; left: 14px; }
 
-/* ----- REVEAL LETTER BUTTON ----- */
-.reveal-letter-button {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 28px 13px 22px;
-  background: linear-gradient(135deg, var(--ivory) 0%, var(--blush-soft) 100%);
-  border: 1px solid rgba(201, 168, 120, 0.45);
-  border-radius: var(--r-pill);
-  color: var(--rose-deep);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 400;
-  font-size: 0.85rem;
-  letter-spacing: 0.24em;
-  text-transform: lowercase;
-  box-shadow:
-    0 8px 20px -4px rgba(120, 60, 70, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  transition: all 0.3s var(--ease-smooth);
+/* ----- ENVELOPE (clickable, sits on the bouquet) ----- */
+.bouquet-envelope {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  transform: translate(-50%, 0) rotate(-4deg);
+  z-index: 4;
+  width: clamp(90px, 18vw, 130px);
+  height: clamp(64px, 12vw, 92px);
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(120, 60, 70, 0.28))
+          drop-shadow(0 2px 4px rgba(120, 60, 70, 0.15));
+  transition: transform 0.3s var(--ease-bounce);
   opacity: 0;
-  transform: translateY(10px);
+  pointer-events: none;
 }
 
-.scene.is-visible .reveal-letter-button {
+.bouquet-envelope.is-shown {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.8s var(--ease-out) 1.6s,
-              transform 0.8s var(--ease-bounce) 1.6s,
-              box-shadow 0.3s var(--ease-smooth);
+  pointer-events: auto;
+  animation: envelope-pop 0.6s var(--ease-bounce) both;
 }
 
-.reveal-letter-button:hover {
-  transform: translateY(-2px);
-  border-color: var(--rose);
+@keyframes envelope-pop {
+  0%   { transform: translate(-50%, 30px) scale(0.5) rotate(-12deg); opacity: 0; }
+  60%  { transform: translate(-50%, -4px) scale(1.1) rotate(2deg); opacity: 1; }
+  100% { transform: translate(-50%, 0) scale(1) rotate(-4deg); opacity: 1; }
+}
+
+.bouquet-envelope:hover {
+  transform: translate(-50%, -3px) scale(1.05) rotate(-2deg);
+}
+
+.bouquet-envelope:active {
+  transform: translate(-50%, 0) scale(0.97) rotate(-4deg);
+}
+
+.envelope-back {
+  position: absolute;
+  inset: 18% 0 0 0;
+  background: linear-gradient(180deg, #fffaf0 0%, #fceedd 100%);
+  border-radius: 4px;
   box-shadow:
-    0 14px 30px -6px rgba(181, 88, 104, 0.30),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    inset 0 0 0 1px rgba(201, 168, 120, 0.35),
+    inset 0 -2px 6px rgba(120, 60, 70, 0.06);
+  z-index: 1;
 }
 
-.reveal-letter-button:active {
-  transform: translateY(0) scale(0.97);
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, #fffaf0 0%, #fceedd 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  box-shadow: inset 0 0 0 1px rgba(201, 168, 120, 0.35);
+  z-index: 2;
+  transform-origin: top center;
+  transition: transform 0.4s var(--ease-bounce);
 }
 
-.reveal-letter-seal {
-  display: inline-flex;
+.bouquet-envelope:hover .envelope-flap {
+  transform: rotateX(-15deg);
+}
+
+.envelope-tape {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 60%;
+  height: 16px;
+  background: linear-gradient(180deg, rgba(232, 212, 182, 0.75) 0%, rgba(201, 168, 120, 0.55) 100%);
+  box-shadow: 0 1px 3px rgba(120, 60, 70, 0.10);
+  border-left: 1px dashed rgba(255, 255, 255, 0.4);
+  border-right: 1px dashed rgba(255, 255, 255, 0.4);
+  z-index: 3;
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  width: clamp(22px, 4vw, 30px);
+  height: clamp(22px, 4vw, 30px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f4a8b6 0%, #d97a8a 60%, #b55868 100%);
+  color: #fff;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #f4a8b6 0%, #d97a8a 100%);
-  color: #fff;
   box-shadow:
-    0 3px 8px -2px rgba(181, 88, 104, 0.40),
+    0 3px 8px rgba(120, 60, 70, 0.30),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  flex-shrink: 0;
+  z-index: 4;
+}
+
+.envelope-shine {
+  position: absolute;
+  top: 24%;
+  left: 10%;
+  width: 30%;
+  height: 8px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  border-radius: 50%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.envelope-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 8px;
+  border: 2px solid var(--rose);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bouquet-envelope:hover .envelope-pulse {
+  animation: envelope-pulse-out 1.2s ease-out infinite;
+}
+
+@keyframes envelope-pulse-out {
+  0%   { transform: scale(0.95); opacity: 0.7; }
+  100% { transform: scale(1.3);  opacity: 0; }
+}
+
+/* ----- REVEAL LETTER HINT (non-interactive text) ----- */
+.reveal-letter-hint {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font-family: 'Caveat', cursive;
+  font-weight: 500;
+  font-size: clamp(1.15rem, 3.4vw, 1.45rem);
+  color: var(--rose-deep);
+  text-align: center;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: 0.01em;
+}
+
+.scene.is-visible .reveal-letter-hint {
+  opacity: 0.85;
+  transform: translateY(0);
+  transition: opacity 0.8s var(--ease-out) 1.6s, transform 0.8s var(--ease-bounce) 1.6s;
+}
+
+.reveal-letter-text {
+  display: block;
 }
 
 .reveal-letter-arrow {
-  font-size: 1.1rem;
+  display: block;
+  font-size: 1.3em;
+  line-height: 1;
   color: var(--rose);
-  transition: transform 0.3s var(--ease-smooth);
+  animation: hint-bob-up 1.6s ease-in-out infinite;
 }
 
-.reveal-letter-button:hover .reveal-letter-arrow {
-  transform: translateX(4px);
+@keyframes hint-bob-up {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
 }
 
 /* ================================================================
