@@ -20,6 +20,8 @@
   const messageCountdown = $('messageCountdown');
   const countdownDigit   = $('countdownDigit');
   const countdownDigit2  = $('countdownDigit2');
+  const peekButton       = $('peekButton');
+  const peekStage        = $('peekStage');
   const letterOverlay = $('letterOverlay');
   const letterCard   = $('letterCard');
   const letterClose  = $('letterClose');
@@ -546,11 +548,12 @@
 
   /* ================================================================
      COUNTDOWN — "Close your eyes and count to 3" (in message scene)
-              → then PEEK scene (cat + "Pag piyong ba")
-              → then second countdown in peek scene
+              → then PEEK scene (cat + "Pag piyong ba" + Try again button)
+              → on button click, second countdown in peek scene
               → then reveal bouquet
      ================================================================ */
   let countdownActive = false;
+  let peekCountdownStarted = false;
   function runCountdown() {
     if (countdownActive) return;
     countdownActive = true;
@@ -568,33 +571,7 @@
             setTimeout(() => {
               scenePeek.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 50);
-            // Let the peek scene settle, then run the second countdown
-            setTimeout(() => {
-              const tickSecond = (m) => {
-                if (m < 1) {
-                  // After second countdown, reveal the bouquet
-                  setTimeout(() => {
-                    revealAfterScene(sceneBouquet).then(() => {
-                      bouquetNote.classList.add('is-shown');
-                      bouquetCat.classList.add('is-shown');
-                      bouquetEnvelope.classList.add('is-shown');
-                      setTimeout(() => {
-                        sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }, 50);
-                    });
-                    countdownActive = false;
-                  }, 700);
-                  return;
-                }
-                countdownDigit2.textContent = String(m);
-                countdownDigit2.classList.remove('is-pop');
-                // Force reflow so the animation restarts on each tick
-                void countdownDigit2.offsetWidth;
-                countdownDigit2.classList.add('is-pop');
-                setTimeout(() => tickSecond(m - 1), 1000);
-              };
-              tickSecond(3);
-            }, 1400);
+            // Wait for the user to tap "Try again" before counting down
           });
         }, 700);
         return;
@@ -607,6 +584,48 @@
       setTimeout(() => tickFirst(n - 1), 1000);
     };
     tickFirst(3);
+  }
+
+  // Run the second countdown in the peek scene, then reveal the bouquet
+  function runPeekCountdown() {
+    if (peekCountdownStarted) return;
+    peekCountdownStarted = true;
+    // Hide the Try again button + show the countdown stage
+    peekButton.classList.add('is-hidden');
+    peekStage.style.opacity = '1';
+    const tickSecond = (m) => {
+      if (m < 1) {
+        setTimeout(() => {
+          revealAfterScene(sceneBouquet).then(() => {
+            bouquetNote.classList.add('is-shown');
+            bouquetCat.classList.add('is-shown');
+            bouquetEnvelope.classList.add('is-shown');
+            setTimeout(() => {
+              sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+          });
+          countdownActive = false;
+          peekCountdownStarted = false;
+        }, 700);
+        return;
+      }
+      countdownDigit2.textContent = String(m);
+      countdownDigit2.classList.remove('is-pop');
+      void countdownDigit2.offsetWidth;
+      countdownDigit2.classList.add('is-pop');
+      setTimeout(() => tickSecond(m - 1), 1000);
+    };
+    tickSecond(3);
+  }
+
+  function setupPeekButton() {
+    peekButton.addEventListener('click', () => {
+      const rect = peekButton.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      spawnHeartBurst(cx, cy, 8);
+      runPeekCountdown();
+    });
   }
 
   function setupLetter() {
@@ -656,6 +675,7 @@
     setupMusicPlayer();
     setupBeginButton();
     setupCtaButton();
+    setupPeekButton();
     setupLetter();
     setupGlobalAudioUnlock();
 

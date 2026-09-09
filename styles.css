@@ -1315,6 +1315,63 @@ button:focus-visible {
   animation: peek-fade-in 0.6s var(--ease-out) 0.9s forwards;
 }
 
+.peek-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 26px;
+  background: linear-gradient(135deg, #f4a8b6 0%, #d97a8a 50%, #b55868 100%);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 0.28em;
+  text-transform: lowercase;
+  border-radius: var(--r-pill);
+  box-shadow:
+    0 10px 24px -6px rgba(181, 88, 104, 0.40),
+    0 3px 8px -2px rgba(181, 88, 104, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+  animation: peek-fade-in 0.6s var(--ease-out) 1.1s forwards,
+             peek-button-breath 2.4s ease-in-out 2.2s infinite;
+  transition: transform 0.3s var(--ease-bounce), box-shadow 0.3s var(--ease-smooth);
+}
+
+.peek-button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 14px 30px -6px rgba(181, 88, 104, 0.50),
+    0 4px 10px -2px rgba(181, 88, 104, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.peek-button:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.peek-button.is-hidden {
+  display: none;
+}
+
+.peek-button-text { position: relative; z-index: 1; }
+.peek-button-heart {
+  display: inline-flex;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s var(--ease-bounce);
+}
+
+.peek-button:hover .peek-button-heart { transform: scale(1.3) rotate(-10deg); }
+
+@keyframes peek-button-breath {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.025); }
+}
+
 .peek-stage {
   opacity: 0;
   animation: peek-fade-in 0.6s var(--ease-out) 1.2s forwards;
