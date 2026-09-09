@@ -16,8 +16,8 @@
   const sceneInvite  = $('sceneInvite');
   const sceneMessage = $('sceneMessage');
   const sceneBouquet = $('sceneBouquet');
-  const sceneCountdown = $('sceneCountdown');
-  const countdownDigit  = $('countdownDigit');
+  const messageCountdown = $('messageCountdown');
+  const countdownDigit   = $('countdownDigit');
   const letterOverlay = $('letterOverlay');
   const letterCard   = $('letterCard');
   const letterClose  = $('letterClose');
@@ -42,7 +42,7 @@
   const messageLine2 = $('messageLine2');
 
   /* ----- CONFIG ----- */
-  const HEART_COUNT = 30;
+  const HEART_COUNT = 60;
   const PETAL_COUNT = 24;
   const SPARKLE_COUNT = 14;
 
@@ -71,13 +71,13 @@
       el.className = 'heart-float';
       el.setAttribute('aria-hidden', 'true');
 
-      const size = 8 + Math.random() * 14;          // 8–22px (small)
+      const size = 10 + Math.random() * 18;          // 10–28px
       const left = Math.random() * 100;
       const duration = 12 + Math.random() * 18;      // 12–30s
       const delay = -Math.random() * 30;
       const drift = (Math.random() - 0.5) * 180;     // -90 to 90 px
       const rotation = (Math.random() - 0.5) * 90;  // -45° to 45°
-      const opacity = 0.28 + Math.random() * 0.42;  // 0.28–0.70
+      const opacity = 0.45 + Math.random() * 0.40;  // 0.45–0.85
       const color = palette[Math.floor(Math.random() * palette.length)];
 
       el.style.left = left + 'vw';
@@ -549,37 +549,37 @@
   function runCountdown() {
     if (countdownActive) return;
     countdownActive = true;
-    // Show countdown scene
-    revealAfterScene(sceneCountdown).then(() => {
-      setTimeout(() => {
-        sceneCountdown.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
-      // Run 3 → 2 → 1
-      const tick = (n) => {
-        if (n < 1) {
-          // Small pause after "1" then reveal the bouquet
-          setTimeout(() => {
-            revealAfterScene(sceneBouquet).then(() => {
-              bouquetNote.classList.add('is-shown');
-              bouquetCat.classList.add('is-shown');
-              bouquetEnvelope.classList.add('is-shown');
-              setTimeout(() => {
-                sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }, 50);
-            });
-            countdownActive = false;
-          }, 700);
-          return;
-        }
-        countdownDigit.textContent = String(n);
-        countdownDigit.classList.remove('is-pop');
-        // Force reflow so the animation restarts on each tick
-        void countdownDigit.offsetWidth;
-        countdownDigit.classList.add('is-pop');
-        setTimeout(() => tick(n - 1), 1000);
-      };
-      tick(3);
-    });
+    // Reveal countdown block in the message scene
+    messageCountdown.classList.add('is-shown');
+    // Make sure the message + countdown are visible
+    setTimeout(() => {
+      sceneMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+    // Run 3 → 2 → 1
+    const tick = (n) => {
+      if (n < 1) {
+        // Small pause after "1" then reveal the bouquet
+        setTimeout(() => {
+          revealAfterScene(sceneBouquet).then(() => {
+            bouquetNote.classList.add('is-shown');
+            bouquetCat.classList.add('is-shown');
+            bouquetEnvelope.classList.add('is-shown');
+            setTimeout(() => {
+              sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+          });
+          countdownActive = false;
+        }, 700);
+        return;
+      }
+      countdownDigit.textContent = String(n);
+      countdownDigit.classList.remove('is-pop');
+      // Force reflow so the animation restarts on each tick
+      void countdownDigit.offsetWidth;
+      countdownDigit.classList.add('is-pop');
+      setTimeout(() => tick(n - 1), 1000);
+    };
+    tick(3);
   }
 
   function setupLetter() {

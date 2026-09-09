@@ -1124,23 +1124,24 @@ button:focus-visible {
 }
 
 /* ================================================================
-   SCENE 5 — THE COUNTDOWN (close your eyes)
+   COUNTDOWN — "Close your eyes and count to 3" (inline in message scene)
    ================================================================ */
-.scene-countdown {
-  background:
-    radial-gradient(ellipse at 50% 40%, rgba(255, 247, 232, 0.85) 0%, transparent 60%),
-    var(--cream);
-  text-align: center;
-}
-
-.countdown-frame {
-  width: 100%;
-  max-width: 640px;
+.message-countdown {
+  margin-top: clamp(28px, 5vw, 44px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(20px, 4vw, 32px);
-  padding: 0 24px;
+  gap: clamp(14px, 2.5vw, 20px);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.message-countdown.is-shown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 .countdown-eyebrow {
@@ -1150,23 +1151,17 @@ button:focus-visible {
   color: var(--mauve);
   letter-spacing: 0.04em;
   margin: 0;
-  opacity: 0;
-  transform: translateY(8px);
-  animation: countdown-fade-in 0.6s var(--ease-out) 0.2s forwards;
 }
 
 .countdown-line {
   font-family: 'Fraunces', 'DM Serif Display', Georgia, serif;
   font-weight: 400;
   font-style: italic;
-  font-size: clamp(1.7rem, 5.5vw, 2.6rem);
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
   line-height: 1.25;
   color: var(--ink);
   margin: 0;
   letter-spacing: -0.01em;
-  opacity: 0;
-  transform: translateY(12px);
-  animation: countdown-fade-in 0.7s var(--ease-out) 0.5s forwards;
 }
 
 .countdown-num {
@@ -1181,11 +1176,11 @@ button:focus-visible {
 
 .countdown-stage {
   position: relative;
-  width: clamp(140px, 30vw, 200px);
-  height: clamp(140px, 30vw, 200px);
+  width: clamp(120px, 26vw, 180px);
+  height: clamp(120px, 26vw, 180px);
   display: grid;
   place-items: center;
-  margin-top: clamp(12px, 3vw, 24px);
+  margin-top: clamp(8px, 2vw, 16px);
 }
 
 .countdown-stage::before {
@@ -1202,7 +1197,7 @@ button:focus-visible {
   font-family: 'Fraunces', serif;
   font-weight: 300;
   font-style: italic;
-  font-size: clamp(5rem, 18vw, 9rem);
+  font-size: clamp(4.5rem, 16vw, 8rem);
   line-height: 1;
   color: var(--rose-deep);
   text-shadow: 0 4px 24px rgba(181, 88, 104, 0.18);
@@ -1211,10 +1206,6 @@ button:focus-visible {
 
 .countdown-digit.is-pop {
   animation: countdown-pop 1s var(--ease-bounce) both;
-}
-
-@keyframes countdown-fade-in {
-  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes countdown-pulse {
