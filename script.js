@@ -589,36 +589,25 @@
     tickFirst(3);
   }
 
-  // Run the second countdown in the peek scene, then reveal the bouquet
+  // After the peek scene: reveal the bouquet directly (no second countdown)
   function runPeekCountdown() {
     if (peekCountdownStarted) return;
     peekCountdownStarted = true;
-    // Hide the Try again button + show the countdown stage
+    // Hide the Try again button
     peekButton.classList.add('is-hidden');
-    peekStage.style.opacity = '1';
-    const tickSecond = (m) => {
-      if (m < 1) {
+    // Reveal the bouquet
+    setTimeout(() => {
+      revealAfterScene(sceneBouquet).then(() => {
+        bouquetNote.classList.add('is-shown');
+        bouquetCat.classList.add('is-shown');
+        bouquetEnvelope.classList.add('is-shown');
         setTimeout(() => {
-          revealAfterScene(sceneBouquet).then(() => {
-            bouquetNote.classList.add('is-shown');
-            bouquetCat.classList.add('is-shown');
-            bouquetEnvelope.classList.add('is-shown');
-            setTimeout(() => {
-              sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 50);
-          });
-          countdownActive = false;
-          peekCountdownStarted = false;
-        }, 700);
-        return;
-      }
-      countdownDigit2.textContent = String(m);
-      countdownDigit2.classList.remove('is-pop');
-      void countdownDigit2.offsetWidth;
-      countdownDigit2.classList.add('is-pop');
-      setTimeout(() => tickSecond(m - 1), 1000);
-    };
-    tickSecond(3);
+          sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
+      });
+      countdownActive = false;
+      peekCountdownStarted = false;
+    }, 400);
   }
 
   function setupPeekButton() {
