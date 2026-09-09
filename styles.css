@@ -1124,7 +1124,112 @@ button:focus-visible {
 }
 
 /* ================================================================
-   SCENE 5 — THE LETTER (modal overlay)
+   SCENE 5 — THE COUNTDOWN (close your eyes)
+   ================================================================ */
+.scene-countdown {
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 247, 232, 0.85) 0%, transparent 60%),
+    var(--cream);
+  text-align: center;
+}
+
+.countdown-frame {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 4vw, 32px);
+  padding: 0 24px;
+}
+
+.countdown-eyebrow {
+  font-family: 'Caveat', cursive;
+  font-weight: 500;
+  font-size: clamp(1.1rem, 3.2vw, 1.4rem);
+  color: var(--mauve);
+  letter-spacing: 0.04em;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: countdown-fade-in 0.6s var(--ease-out) 0.2s forwards;
+}
+
+.countdown-line {
+  font-family: 'Fraunces', 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.7rem, 5.5vw, 2.6rem);
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: countdown-fade-in 0.7s var(--ease-out) 0.5s forwards;
+}
+
+.countdown-num {
+  font-family: 'Caveat', cursive;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.25em;
+  color: var(--rose-deep);
+  display: inline-block;
+  transform: translateY(2px);
+}
+
+.countdown-stage {
+  position: relative;
+  width: clamp(140px, 30vw, 200px);
+  height: clamp(140px, 30vw, 200px);
+  display: grid;
+  place-items: center;
+  margin-top: clamp(12px, 3vw, 24px);
+}
+
+.countdown-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 168, 182, 0.15) 0%, transparent 70%);
+  animation: countdown-pulse 1s ease-in-out infinite;
+}
+
+.countdown-digit {
+  position: relative;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(5rem, 18vw, 9rem);
+  line-height: 1;
+  color: var(--rose-deep);
+  text-shadow: 0 4px 24px rgba(181, 88, 104, 0.18);
+  display: block;
+}
+
+.countdown-digit.is-pop {
+  animation: countdown-pop 1s var(--ease-bounce) both;
+}
+
+@keyframes countdown-fade-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes countdown-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50%      { transform: scale(1.08); opacity: 1; }
+}
+
+@keyframes countdown-pop {
+  0%   { transform: scale(0.4); opacity: 0; }
+  40%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ================================================================
+   SCENE 6 — THE LETTER (modal overlay)
    ================================================================ */
 .letter-overlay {
   position: fixed;

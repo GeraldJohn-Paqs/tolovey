@@ -16,6 +16,8 @@
   const sceneInvite  = $('sceneInvite');
   const sceneMessage = $('sceneMessage');
   const sceneBouquet = $('sceneBouquet');
+  const sceneCountdown = $('sceneCountdown');
+  const countdownDigit  = $('countdownDigit');
   const letterOverlay = $('letterOverlay');
   const letterCard   = $('letterCard');
   const letterClose  = $('letterClose');
@@ -425,6 +427,11 @@
                     bouquetNote.classList.add('is-shown');
                     bouquetCat.classList.add('is-shown');
                     bouquetEnvelope.classList.add('is-shown');
+                    // After letting the user enjoy the bouquet for a few seconds,
+                    // transition to the countdown scene.
+                    setTimeout(() => {
+                      runCountdown();
+                    }, 3500);
                   });
                   setTimeout(() => {
                     sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -546,6 +553,43 @@
     setTimeout(() => {
       letterOverlay.setAttribute('hidden', '');
     }, 450);
+  }
+
+  /* ================================================================
+     COUNTDOWN — "Close your eyes and count to 3"
+     ================================================================ */
+  let countdownActive = false;
+  function runCountdown() {
+    if (countdownActive) return;
+    countdownActive = true;
+    // Show countdown scene
+    revealAfterScene(sceneCountdown).then(() => {
+      setTimeout(() => {
+        sceneCountdown.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+      // Run 3 → 2 → 1
+      const tick = (n) => {
+        if (n < 1) {
+          // Small pause after "1" then open the letter
+          setTimeout(() => {
+            const rect = countdownDigit.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            spawnHeartBurst(cx, cy);
+            openLetter();
+            countdownActive = false;
+          }, 700);
+          return;
+        }
+        countdownDigit.textContent = String(n);
+        countdownDigit.classList.remove('is-pop');
+        // Force reflow so the animation restarts on each tick
+        void countdownDigit.offsetWidth;
+        countdownDigit.classList.add('is-pop');
+        setTimeout(() => tick(n - 1), 1000);
+      };
+      tick(3);
+    });
   }
 
   function setupLetter() {
