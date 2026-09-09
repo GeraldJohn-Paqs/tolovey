@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#fbf5ea" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Hi loveyy ♡ a little page just for you</title>
+  <meta name="description" content="A little page just for you." />
+
+  <!-- Force a fresh load on every visit (defeats aggressive browser cache) -->
+  <script>
+    (function () {
+      try {
+        if (!location.search || !/v=/.test(location.search)) {
+          var s = (location.search ? location.search + '&' : '?') + 'v=2026a&t=' + Date.now();
+          location.replace(location.pathname + s);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css?v=2026" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d97a8a'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>" />
+</head>
+<body>
+  <!-- ============== AMBIENT LAYERS ============== -->
+  <div class="paper-texture" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- Floating hearts across the entire background -->
+  <div class="hearts-layer" id="heartsLayer" aria-hidden="true"></div>
+
+  <!-- Floating petals (rose petals) -->
+  <div class="petals-layer" id="petalsLayer" aria-hidden="true"></div>
+
+  <!-- Sparkle layer -->
+  <div class="sparkles-layer" id="sparklesLayer" aria-hidden="true"></div>
+
+  <!-- ============== SCENE 1: THE AWAKENING (tap to begin) ============== -->
+  <section class="scene scene-intro" id="sceneIntro" data-scene="intro" aria-label="Welcome">
+    <div class="intro-frame">
+      <div class="intro-text">
+        <h1 class="intro-title">Hi loveyy</h1>
+        <p class="intro-tagline">A little page just for you</p>
+      </div>
+
+      <button class="begin-button" id="beginButton" type="button" aria-label="Tap to begin the experience">
+        <span class="begin-orb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </span>
+        <span class="begin-text">tap to begin</span>
+        <span class="begin-orb" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </span>
+        <span class="begin-shine" aria-hidden="true"></span>
+      </button>
+
+      <p class="intro-hint" aria-hidden="true">
+        <span>♫</span> music will play softly
+      </p>
+    </div>
+  </section>
+
+  <!-- ============== SCENE 2: THE INVITATION ============== -->
+  <section class="scene scene-invite" id="sceneInvite" data-scene="invite" aria-label="Greeting" hidden>
+    <div class="invite-frame">
+      <div class="invite-card">
+        <div class="invite-corner invite-corner--tl" aria-hidden="true">❀</div>
+        <div class="invite-corner invite-corner--tr" aria-hidden="true">❀</div>
+        <div class="invite-corner invite-corner--bl" aria-hidden="true">❀</div>
+        <div class="invite-corner invite-corner--br" aria-hidden="true">❀</div>
+
+        <div class="invite-content">
+          <h2 class="invite-title">Hi&nbsp;loveyy</h2>
+          <div class="invite-ornament" aria-hidden="true">
+            <span class="orn-line"></span>
+            <span class="orn-glyph">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </span>
+            <span class="orn-line"></span>
+          </div>
+          <p class="invite-tagline">a little page just for you</p>
+        </div>
+
+        <button class="cta-button" id="ctaButton" type="button" aria-label="click here">
+          <span class="cta-text">click here</span>
+          <span class="cta-heart" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </span>
+          <span class="cta-pulse" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <p class="invite-scroll-cue" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">scroll</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============== SCENE 3: THE MESSAGE ============== -->
+  <section class="scene scene-message" id="sceneMessage" data-scene="message" aria-label="A message for you" hidden>
+    <div class="message-frame">
+      <div class="message-quill" aria-hidden="true">✒︎</div>
+      <p class="message-line message-line--1" id="messageLine1" data-text="I couldn't bring you flowers in person…"></p>
+      <span class="message-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-bloom">✿</span>
+        <span class="divider-line"></span>
+      </span>
+      <p class="message-line message-line--2" id="messageLine2" data-text="…so I brought you here instead."></p>
+      <p class="message-scroll-cue" aria-hidden="true">
+        <span class="scroll-line"></span>
+        <span class="scroll-text">and a little surprise below</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============== SCENE 4: THE BOUQUET ============== -->
+  <section class="scene scene-bouquet" id="sceneBouquet" data-scene="bouquet" aria-label="A bouquet of red roses" hidden>
+    <div class="bouquet-frame">
+      <span class="bouquet-eyebrow">for you, with love</span>
+
+      <div class="bouquet-card">
+        <div class="bouquet-card-tape bouquet-card-tape--tl" aria-hidden="true"></div>
+        <div class="bouquet-card-tape bouquet-card-tape--tr" aria-hidden="true"></div>
+        <div class="bouquet-card-tape bouquet-card-tape--bl" aria-hidden="true"></div>
+        <div class="bouquet-card-tape bouquet-card-tape--br" aria-hidden="true"></div>
+
+        <div class="bouquet-image-wrap">
+          <img class="bouquet-image" src="assets/bouquet.png" alt="A bouquet of red roses" width="600" height="800" loading="lazy" />
+        </div>
+
+        <div class="bouquet-note" id="bouquetNote" aria-hidden="true">
+          <span class="note-pin" aria-hidden="true"></span>
+          <div class="note-content">
+            <span class="note-line note-line--1">Fl0WeRs 4 U L0V3</span>
+            <span class="note-line note-line--2">ekSzdi!''</span>
+          </div>
+          <span class="note-doodle" aria-hidden="true">~</span>
+        </div>
+
+        <div class="bouquet-cat" id="bouquetCat" aria-hidden="true">
+          <div class="cat-tape" aria-hidden="true"></div>
+          <img class="cat-image" src="assets/cat.png" alt="A cute little cat" width="220" height="220" loading="lazy" />
+        </div>
+
+        <div class="bouquet-corner-heart bouquet-corner-heart--tl" aria-hidden="true">♡</div>
+        <div class="bouquet-corner-heart bouquet-corner-heart--br" aria-hidden="true">♡</div>
+      </div>
+
+      <button class="reveal-letter-button" id="revealLetterButton" type="button">
+        <span class="reveal-letter-seal" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </span>
+        <span class="reveal-letter-text">read my letter</span>
+        <span class="reveal-letter-arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============== SCENE 5: THE LETTER (modal) ============== -->
+  <div class="letter-overlay" id="letterOverlay" role="dialog" aria-modal="true" aria-labelledby="letterTitle" aria-hidden="true" hidden>
+    <div class="letter-backdrop" id="letterBackdrop" aria-hidden="true"></div>
+    <article class="letter-card" id="letterCard" aria-label="A love letter">
+      <button class="letter-close" id="letterClose" type="button" aria-label="Close letter">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+
+      <div class="letter-seal" aria-hidden="true">
+        <span class="seal-initial">L</span>
+        <span class="seal-ring seal-ring--outer"></span>
+        <span class="seal-ring seal-ring--inner"></span>
+      </div>
+
+      <div class="letter-paper">
+        <header class="letter-header">
+          <h3 class="letter-eyebrow" id="letterTitle">a letter for you</h3>
+        </header>
+        <div class="letter-body" id="letterBody">
+          <p data-text="Congratulations on your pinning, love!"></p>
+          <p data-text="I wish I could be there today to give you flowers. But sadly, di ko kahibaw mo teleport HAHAHA"></p>
+          <p data-text="So I made this little website to send you some flowers instead."></p>
+          <p data-text="I’m so proud of you and everything you’ve worked hard for. You made it this far love, and I’ll always be here cheering for you."></p>
+          <p data-text="Good luck on your OJT, PYOTYOR TETSIR! Mwaaaa!"></p>
+        </div>
+        <p class="letter-sign" data-text="— lablab ❤️"></p>
+      </div>
+    </article>
+  </div>
+
+  <!-- ============== MUSIC PLAYER ============== -->
+  <aside class="music-player" id="musicPlayer" aria-label="Our song music player" hidden>
+    <button class="mp-heart" id="mpHeart" type="button" aria-label="Our song">
+      <span class="mp-heart-inner">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+      </span>
+      <span class="mp-heart-pulse" aria-hidden="true"></span>
+    </button>
+
+    <div class="mp-info">
+      <span class="mp-eyebrow">Now Playing</span>
+      <span class="mp-title">Aphrodite</span>
+      <div class="mp-progress" id="mpProgress" role="progressbar" aria-label="Song progress" tabindex="0">
+        <div class="mp-progress-track">
+          <div class="mp-progress-fill" id="mpProgressFill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mp-controls">
+      <button class="mp-btn mp-volume" id="mpVolume" type="button" aria-label="Mute">
+        <svg class="mp-vol-on" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        <svg class="mp-vol-off" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zM19 12c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+      </button>
+    </div>
+
+    <audio id="mpAudio" src="assets/our-song.mp3" preload="metadata" loop></audio>
+  </aside>
+
+  <!-- Reduced-motion note (shown only if user requests reduced motion) -->
+  <noscript>
+    <div class="noscript-warn" style="position:fixed;inset:0;display:grid;place-items:center;background:#fbf5ea;color:#4a2e3a;padding:24px;text-align:center;font-family:Outfit,system-ui,sans-serif;">
+      This little page needs JavaScript to bloom. Please enable it ✿
+    </div>
+  </noscript>
+
+  <script src="script.js?v=2026" defer></script>
+</body>
+</html>
