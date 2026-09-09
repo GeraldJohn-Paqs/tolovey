@@ -25,8 +25,9 @@
   const ctaButton    = $('ctaButton');
   const bouquetEnvelope = $('bouquetEnvelope');
 
-  const bouquetNote  = $('bouquetNote');
-  const bouquetCat   = $('bouquetCat');
+  const bouquetNote      = $('bouquetNote');
+  const bouquetCat       = $('bouquetCat');
+  const bouquetImageWrap = $('bouquetImageWrap');
 
   const musicPlayer  = $('musicPlayer');
   const mpAudio      = $('mpAudio');
@@ -423,6 +424,7 @@
                     // Show note & cat immediately with the bouquet (no delay)
                     bouquetNote.classList.add('is-shown');
                     bouquetCat.classList.add('is-shown');
+                    bouquetEnvelope.classList.add('is-shown');
                   });
                   setTimeout(() => {
                     sceneBouquet.scrollIntoView({ behavior: 'smooth', block: 'start' });
