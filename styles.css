@@ -1323,10 +1323,10 @@ button:focus-visible {
   background: linear-gradient(135deg, #f4a8b6 0%, #d97a8a 50%, #b55868 100%);
   color: #fff;
   font-family: 'Outfit', sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 0.85rem;
   letter-spacing: 0.28em;
-  text-transform: lowercase;
+  text-transform: uppercase;
   border-radius: var(--r-pill);
   box-shadow:
     0 10px 24px -6px rgba(181, 88, 104, 0.40),
