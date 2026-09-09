@@ -548,8 +548,8 @@
 
   /* ================================================================
      COUNTDOWN — "Close your eyes and count to 3" (in message scene)
-              → then PEEK scene (cat + "Pag piyong ba" + Try again button)
-              → on button click, second countdown in peek scene
+              → then PEEK scene (cat + "Hmmmm, Piyong haaaa")
+              → auto after 2s → second countdown in peek scene
               → then reveal bouquet
      ================================================================ */
   let countdownActive = false;
@@ -571,7 +571,10 @@
             setTimeout(() => {
               scenePeek.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 50);
-            // Wait for the user to tap "Try again" before counting down
+            // Hold the peek scene for 2 seconds, then auto-run the second countdown
+            setTimeout(() => {
+              runPeekCountdown();
+            }, 2000);
           });
         }, 700);
         return;
